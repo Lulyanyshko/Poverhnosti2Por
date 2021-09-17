@@ -1,4 +1,4 @@
-Surface.prototype.sphere = (color = '#00FFFF', x = 0, y = 0, z = 0, R = 10, vertPoints = 9, horizPoints = 9) => {
+Surface.prototype.sphere = (color = '#00FFFF', x = 0, y = 0, z = 0, R = 10, vertPoints = 14, horizPoints =14) => {
     angleVert = Math.PI / vertPoints;
     angleHoriz = 2 * Math.PI / horizPoints;
     let points = [];
@@ -45,14 +45,30 @@ Surface.prototype.sphere = (color = '#00FFFF', x = 0, y = 0, z = 0, R = 10, vert
     }
     polygones.push(new Polygon(dotes, color));
     //окно
+    if(vertPoints*horizPoints%2==0){
     polygones.forEach( (element,i) => {
-        if (i == 33) {
+        if (i == (vertPoints*horizPoints/2)) {
             polygones.splice(i,2);
         }
 
-        if (i == 40) {
+        if (i == (vertPoints*horizPoints/2-vertPoints+2)) {
             polygones.splice(i,2);
         }
     })
+       }
+    if(vertPoints*horizPoints%2==1){
+    polygones.forEach( (element,i) => {
+        if (i == ((vertPoints*horizPoints-1)/2)) {
+            polygones.splice(i,2);
+        }
+
+        if (i == ((vertPoints*horizPoints-1)/2-vertPoints+2)) {
+            polygones.splice(i,2);
+        }
+    })
+       }
+
+    
+
     return new Subject(points, edges, polygones);
 }
